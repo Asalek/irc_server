@@ -178,7 +178,14 @@ void	Server::_b(char sign, string _channel, Client * _client, string _user)
 				if (sign == '+')
 				{
 					chan->second->bans.insert(std::pair <string, bool> (_user, 0));
-					if (chan->second->members.find(_user.substr(0, _user.find('!'))) != chan->second->members.end())
+					if (_user == "*!*@*")
+					{
+						std::map<string, Client *>::iterator it = chan->second->members.begin();
+						for (; it != chan->second->members.end(); it++)
+							if (it->second->nick != _client->nick)
+								this->leave_channels(it->second, chan->first);
+					}
+					else if (chan->second->members.find(_user.substr(0, _user.find('!'))) != chan->second->members.end())
 						this->leave_channels(chan->second->members.find(_user.substr(0, _user.find('!')))->second, chan->first);
 				}
 				else if (sign == '-')
