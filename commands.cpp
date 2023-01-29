@@ -87,13 +87,13 @@ void    Server::_NOTICE(string s_token, Client * client, string msg)
                 send_msg(receiver, letter);
             }
         }
-		// free(msg_token);
+		free(nick_name);
     }
 }
 
 int		Server::_PRIVMSG(string s_token, Client * client, string msg)
 {
-	if (s_token == "PRIVMSG\r\n" || s_token == "PRIVMSG\n")
+	if (s_token == "PRIVMSG\r\n" || s_token == "PRIVMSG\n" || (s_token == "PRIVMSG" && msg == ""))
 		return (send_msg(client, ERR_NORECIPIENT("PRIVMSG")), 1);
     else if (s_token == "PRIVMSG")
     {

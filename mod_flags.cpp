@@ -7,13 +7,15 @@ void	Server::_o(char sign, string _channel, string _nick, Client * _client)
     std::map<string, Channel *>::iterator chan = this->channels.find(_channel);
     if (chan != this->channels.end())
     {
+        if (this->find_client(_nick) == nullptr)
+            return (send_msg(_client, ERR_NOSUCHNICK(_client->nick)));
         std::map<string, Client *>::iterator oper = chan->second->operators.find(_client->nick);
         if (oper != chan->second->operators.end())
         {
             if (sign == '+')
             {
                 chan->second->operators.insert(std::pair<string, Client *> (_nick, find_client(_nick)));
-                chan->second->moderators.insert(std::pair<string, Client *> (_nick, find_client(_nick)));
+                // chan->second->moderators.insert(std::pair<string, Client *> (_nick, find_client(_nick)));
                 send_msg(find_client(_nick), ":" + _client->user_info() + " PRIVMSG " + _nick + " : You just got oper_privelage at " + _channel);
             }
             else if (sign == '-')
@@ -76,6 +78,8 @@ void	Server::_v(char sign, string _channel, string _nick, Client * _client)
     std::map<string, Channel *>::iterator chan = this->channels.find(_channel);
     if (chan != this->channels.end())
     {
+        if (this->find_client(_nick) == nullptr)
+            return (send_msg(_client, ERR_NOSUCHNICK(_client->nick)));
         std::map<string, Client *>::iterator oper = chan->second->operators.find(_client->nick);
         if (oper != chan->second->operators.end())
         {
@@ -123,8 +127,11 @@ void	Server::_l(char sign, string _channel, string _limit, Client * _client)
         {
             if (sign == '+')
             {
+                for (size_t i = 0; i < _limit.size(); i++)
+                    if (!isdigit(_limit[i]))
+                        return ;
                 if ((int)chan->second->members.size() < std::stoi(_limit))
-                    chan->second->max_numbers = std::stoi(_limit);
+                    chan->second->max_numbers = std::stoi(_limit);   
             }
             else if (sign == '-')
                 return;
