@@ -53,8 +53,9 @@ feel free to contact me if you counter any issue :
 - discord :
 	asalek#7750
 	ta×_×ha#0400
-- gmail :
+- email :
 	ayoub.salek8599@gmail.com
+        tahanamir@hotmail.com
 - Linkedin :
 
 	ayoub :
