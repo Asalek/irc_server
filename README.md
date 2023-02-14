@@ -51,11 +51,15 @@ Please make sure to update tests as appropriate.
 
 feel free to contact me if you counter any issue : 
 - discord :
+
 	asalek#7750
+	
 	ta×_×ha#0400
 - email :
+
 	ayoub.salek8599@gmail.com
-        tahanamir@hotmail.com
+
+	tahanamir@hotmail.com
 - Linkedin :
 
 	ayoub :
